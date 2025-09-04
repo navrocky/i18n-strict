@@ -1,4 +1,4 @@
-# i18n::strict — a library for strict typed internationalization
+# i18n::strict — a C++ library for strict typed internationalization
 
 A strictly typed, lightweight internationalization and localization system for multilingual programs. 
 
