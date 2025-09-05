@@ -1,8 +1,6 @@
 // clazy:excludeall=non-pod-global-static
 #include <catch2/catch_all.hpp>
 
-#include <func
-
 #include <lib/i18n_strict.h>
 
 struct test_dict : public i18n_strict::dict {
@@ -26,18 +24,8 @@ test_dict create_ru_test_dict()
     };
 }
 
-template <typename ...Args>
-std::function<std::string()> test(std::format_string<Args...> text, Args&&... args) {
-    return [&text, ...args = std::forward<Args>(args)](){
-        return std::format(text, std::forward<Args...>(args)...);
-    };
-}
-
 TEST_CASE("Translation")
 {
-    auto f = test("{}", 1);
-    auto s = f();
-
     auto tr = i18n_strict::create_text_translator<test_dict>("ru",
         {
             { "en", create_en_test_dict() },
@@ -59,8 +47,8 @@ TEST_CASE("Translation")
     }
     SECTION("Use translatable string to translate later")
     {
-        tr_str str(tr, &test_dict::transfer_money_to_account, 10, std::string("John"));
-        REQUIRE(str.translate("en") == "");
-        REQUIRE(str.translate() == "");
+        i18n_strict::tr_str str(tr, &test_dict::transfer_money_to_account, 10, "John");
+        REQUIRE(str.translate("en") == "Transfer 10 to account John");
+        REQUIRE(str.translate() == "Перевести 10 на счет John");
     }
 }

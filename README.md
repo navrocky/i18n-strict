@@ -72,11 +72,11 @@ TEST_CASE("Translation")
         REQUIRE(tr->translate("en", &test_dict::transfer_money_to_account, 10, std::string("John"))
             == "Transfer 10 to account John");
     }
-    SECTION("Use translatable string to translate for specific language later")
+    SECTION("Use translatable string to translate later")
     {
-        i18n_strict::tr_str str(tr, &test_dict::transfer_money_to_account, 10, std::string("John"));
-        REQUIRE(str.translate("en") == "");
-        REQUIRE(str.translate() == "");
+        i18n_strict::tr_str str(tr, &test_dict::transfer_money_to_account, 10, "John");
+        REQUIRE(str.translate("en") == "Transfer 10 to account John");
+        REQUIRE(str.translate() == "Перевести 10 на счет John");
     }
 }
 ```

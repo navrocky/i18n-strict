@@ -63,8 +63,8 @@ public:
      * @return
      */
     template <typename... Args>
-    [[nodiscard]] std::string translate(
-        const std::string& lang_code, dict_field_ref_type<Args...> dict_field_ref, Args&&... args) const
+    [[nodiscard]] std::string translate(const std::string& lang_code, dict_field_ref_type<Args...> dict_field_ref,
+        std::convertible_to<Args> auto&&... args) const
     {
         std::string res;
         if (!lang_code.empty()) {
@@ -119,11 +119,11 @@ template <typename Dict>
 class tr_str {
 public:
     template <typename Dict, typename... Args>
-    tr_str(const text_translator_ptr<Dict>& translator,
-        text_translator<Dict>::template dict_field_ref_type<Args...> dict_field_ref, Args&&... args)
+    tr_str(const text_translator_ptr<Dict>& translator, dict_str<Args...> Dict::* dict_field_ref,
+        std::convertible_to<Args> auto&&... args)
     {
-        tr = [translator, dict_field_ref, ... args = std::forward<Args>(args)](const std::string& lang_code) {
-            return translator->template translate<Args...>(lang_code, dict_field_ref, args...);
+        tr = [translator, dict_field_ref, ... args = std::move(args)](const std::string& lang_code) {
+            return translator->translate(lang_code, dict_field_ref, (Args)args...);
         };
     }
 
