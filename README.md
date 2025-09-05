@@ -87,6 +87,9 @@ Just copy and include `lib/i18n_strict.h` in your project.
 
 ## Backlog
 
+- [ ] Run unit tests with Github Actions
+- [ ] Improve inline documentation
+- [ ] Generate documentation with Doxygen
 - [ ] Describe installation with [CMake FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html)
 - [ ] Add package to [vcpkg](https://vcpkg.io)
 - [ ] Add package to [Conan Center](https://conan.io/center)
