@@ -5,5 +5,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(i18n_strict LANGUAGES CXX)
 
-add_subdirectory(test)
+option(BUILD_TESTS "Build tests" ON)
+
+if(BUILD_TESTS)
+  add_subdirectory(test)
+endif()
 

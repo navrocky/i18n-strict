@@ -22,7 +22,7 @@ A strictly typed, lightweight internationalization and localization system for m
 ## Examples of usage
 
 ```cpp
-#include <lib/i18n_strict.h>
+#include <i18n_strict.h>
 
 struct test_dict : public i18n_strict::dict {
     str<> app_started;
@@ -85,11 +85,38 @@ TEST_CASE("Translation")
 
 Just copy and include `lib/i18n_strict.h` in your project.
 
+### Include with CMake FetchContent
+
+Add to your cmake project:
+
+```cmake
+# Use C++20
+set(CMAKE_CXX_STANDARD 20)
+
+# Include i18n::strict
+include(FetchContent)
+FetchContent_Declare(
+  i18n_strict
+  GIT_REPOSITORY https://github.com/navrocky/i18n-strict.git
+  GIT_TAG        1.0.0 # Place the needed version here
+  OVERRIDE_FIND_PACKAGE
+)
+set(BUILD_TESTS OFF CACHE BOOL "Disable tests" FORCE)
+FetchContent_MakeAvailable(i18n_strict)
+include_directories(${i18n_strict_SOURCE_DIR}/lib)
+```
+
+After then include library as usual:
+
+```
+#include <i18n_strict.h>
+```
+
 ## Backlog
 
 - [ ] Run unit tests with Github Actions
 - [ ] Improve inline documentation
 - [ ] Generate documentation with Doxygen
-- [ ] Describe installation with [CMake FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html)
+- [x] Describe installation with [CMake FetchContent](https://cmake.org/cmake/help/latest/module/FetchContent.html)
 - [ ] Add package to [vcpkg](https://vcpkg.io)
 - [ ] Add package to [Conan Center](https://conan.io/center)
